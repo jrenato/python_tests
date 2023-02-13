@@ -1,4 +1,4 @@
-from lib_tests.devices import Smartphone
+from answers.devices import Smartphone
 
 smartphone = Smartphone()
 
@@ -25,9 +25,17 @@ assert smartphone.charge_battery() == 'Already charged'
 
 # Try to turn on the smartphone with full battery
 assert smartphone.power_on() == 'Powered on'
+assert smartphone.is_powered() == True
 
 # Try to turn on a smartphone that is already on
 assert smartphone.power_on() == 'Already powered on'
+
+# Try to turn off a smartphone that is on
+assert smartphone.power_off() == 'Powered off'
+assert smartphone.is_powered() == False
+
+# Try to turn on a smartphone that is already on
+assert smartphone.power_on() == 'Powered on'
 
 # Play a game called 'Snake', which consumes 3% of the battery
 assert smartphone.play_game('Snake') == 'Playing game: Snake'
@@ -51,5 +59,15 @@ assert smartphone.power_off() == 'Already powered off'
 
 # Try to turn on the smartphone with insufficient battery
 assert smartphone.power_on() == 'Not enough charge'
+
+# Charge just enough to turn on the smartphone
+assert smartphone.charge_battery(1) == 'Charging'
+assert smartphone.get_charge() == 5
+
+# Try to turn on with minimal charge
+assert smartphone.power_on() == 'Powered on'
+
+# Let the smartphone consume 1% of battery, triggering the power off
+assert smartphone.discharge_battery() == 'Powering off'
 
 print("Passed all tests! :)")
